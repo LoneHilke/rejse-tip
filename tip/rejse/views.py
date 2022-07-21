@@ -1,8 +1,8 @@
-from curses.ascii import EM
+#from curses.ascii import EM
 from distutils.command.build_scripts import first_line_re
 from .forms import ProfileForm, BlogPostForm
 from tkinter import E
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Profile, Rejse, Comment 
 
 # Create your views here.
