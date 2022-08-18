@@ -1,9 +1,9 @@
 #from curses.ascii import EM
-from distutils.command.build_scripts import first_line_re
+#from distutils.command.build_scripts import first_line_re
 from .forms import ProfileForm, BlogPostForm
 from tkinter import E
 from django.shortcuts import render, redirect
-from .models import Profile, Rejse, Comment 
+from .models import Profile, BlogPost, Comment 
 
 # Create your views here.
 def Register(request):
@@ -61,8 +61,8 @@ def edit_profile(request):
     return render(request, "edit_profile.html", {'form':form})
 
 def blogs(request):
-    posts = Rejse.objects.all()
-    posts = Rejse.objects.filter().order_by('-dateTime')
+    posts = BlogPost.objects.all()
+    posts = BlogPost.objects.filter().order_by('-dateTime')
     return render(request, "blog.html", {'posts':posts})
 
 #@login_required(login_url = ‘/login’)
@@ -81,7 +81,7 @@ def add_blogs(request):
     return render(request, "add_blogs.html", {'form':form})
 
 def blogs_comments(request, slug):
-    post = Rejse.objects.filter(slug=slug).first()
+    post = BlogPost.objects.filter(slug=slug).first()
     comments = Comment.objects.filter(blog=post)
     if request.method=="POST":
         user = request.user
@@ -90,3 +90,5 @@ def blogs_comments(request, slug):
         comment = Comment(user = user, content = content, blog=post)
         comment.save()
     return render(request, "blog_comments.html", {'post':post, 'comments':comments}) 
+
+    # https://data-flair.training/blogs/django-blog-application-project/
